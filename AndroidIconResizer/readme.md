@@ -3,6 +3,9 @@ This app will resize all images (.png files) in a directory to various sizes to 
 
 # Command line options: #
 
+    --include-xxxhdpi   (Default: False) Include an xxxhdpi sized image.  Note
+                        that google only suggests this for launcher icons.
+                        (http://developer.android.com/guide/practices/screens_support.html#xxxhdpi-note)
     -i, --input-dir     (Default: .) Location of the images to process.  Default
                         value:  current directory.
     -o, --output-dir    (Default: .) Location of the output directory.  Default
@@ -27,10 +30,10 @@ This app will resize all images (.png files) in a directory to various sizes to 
 ### Directory After ###
 
     * file.png (still 1024 pixels x 1024 pixels)
-    * res/drawable-ldpi/file.png (75 x 75 pixels)
-    * res/drawable-mdpi/file.png (100 x 100 pixels)
-    * res/drawable-hdpi/file.png (150 x 150 pixels)
-    * res/drawable-xhdpi/file.png (200 x 200 pixels)
+    * res/drawable-mdpi/file.png   (100 x 100 pixels)
+    * res/drawable-hdpi/file.png   (150 x 150 pixels)
+    * res/drawable-xhdpi/file.png  (200 x 200 pixels)
+    * res/drawable-xxhdpi/file.png (300 x 300 pixels)
 
 
 ## Resize all images in specified directory to 20 by 50 pixels ##

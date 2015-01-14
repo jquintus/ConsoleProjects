@@ -11,7 +11,7 @@ namespace AndroidIconResizer
             var options = CommandLineOption.Read(args);
             if (null == options) return;
 
-            MakeDestinationDirectories(options.OutputDir);
+            MakeDestinationDirectories(options);
 
             var files = options.InputDir.GetFiles("*.png");
             foreach (var file in files)
@@ -20,13 +20,13 @@ namespace AndroidIconResizer
             }
         }
 
-        private static void MakeDestinationDirectories(DirectoryInfo dir)
+        private static void MakeDestinationDirectories(CommandLineOption options)
         {
-            MkDir(dir, @"\res");
+            MkDir(options.OutputDir, @"\res");
 
-            foreach (var size in ImageSize.Sizes)
+            foreach (var size in ImageSize.GetSizes(options))
             {
-                MkDir(dir, @"\res\" + size.Name);
+                MkDir(options.OutputDir, @"\res\" + size.Name);
             }
         }
 
@@ -43,7 +43,7 @@ namespace AndroidIconResizer
         {
             Console.WriteLine("Resizing {0}", inputFile);
 
-            foreach (var imageSize in ImageSize.Sizes)
+            foreach (var imageSize in ImageSize.GetSizes(options))
             {
                 FileInfo outputFile = new FileInfo(Path.Combine(options.OutputDir.FullName, "res", imageSize.Name, inputFile.Name));
                 using (var image = new MagickImage(inputFile))

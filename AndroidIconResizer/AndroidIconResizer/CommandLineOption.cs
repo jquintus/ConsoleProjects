@@ -6,6 +6,9 @@ namespace AndroidIconResizer
 {
     public class CommandLineOption
     {
+        [Option("include-xxxhdpi", DefaultValue = false, HelpText = "Include an xxxhdpi sized image.  Note that google only suggests this for launcher icons.  (http://developer.android.com/guide/practices/screens_support.html#xxxhdpi-note)")]
+        public bool IncludeXxxhdpi { get; set; }
+
         public DirectoryInfo InputDir { get; set; }
 
         [Option('i', "input-dir", DefaultValue = ".", HelpText = "Location of the images to process.  Default value:  current directory.")]
@@ -24,10 +27,10 @@ namespace AndroidIconResizer
             set { OutputDir = new DirectoryInfo(value); }
         }
 
-        [Option('h', "height", DefaultValue = 100, HelpText = "The height of the output image in pixels in the MDPI folder.  Default value:  100")]
+        [Option('h', "height", DefaultValue = 100, HelpText = "The height of the output image in pixels in the MDPI folder.")]
         public int OutputHeight { get; set; }
 
-        [Option('w', "width", DefaultValue = 100, HelpText = "The width of the output image in pixels in the MDPI folder.  Default value:  100")]
+        [Option('w', "width", DefaultValue = 100, HelpText = "The width of the output image in pixels in the MDPI folder.")]
         public int OutputWidth { get; set; }
 
         public static CommandLineOption Read(string[] args)
