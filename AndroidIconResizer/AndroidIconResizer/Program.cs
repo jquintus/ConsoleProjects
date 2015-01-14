@@ -45,7 +45,7 @@ namespace AndroidIconResizer
 
             foreach (var imageSize in ImageSize.Sizes)
             {
-                FileInfo outputFile = new FileInfo(Path.Combine(outputDir.FullName, inputFile.Name));
+                FileInfo outputFile = new FileInfo(Path.Combine(outputDir.FullName,"res", imageSize.Name, inputFile.Name));
                 using (var image = new MagickImage(inputFile))
                 {
                     int newSize = (int)(size * imageSize.Ratio);

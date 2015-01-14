@@ -9,7 +9,7 @@ namespace AndroidIconResizer
     {
         public DirectoryInfo InputDir { get; set; }
 
-        [Option('i', "input-dir", DefaultValue = ".", HelpText = "Location of the images to process.  Defaults to current directory.")]
+        [Option('i', "input-dir", DefaultValue = ".", HelpText = "Location of the images to process.  Default value:  current directory.")]
         public string InputDirString
         {
             get { return InputDir.FullName; }
@@ -18,14 +18,14 @@ namespace AndroidIconResizer
 
         public DirectoryInfo OutputDir { get; set; }
 
-        [Option('o', "output-dir", DefaultValue = ".", HelpText = "Location of the output directory.  Defaults to current directory.")]
+        [Option('o', "output-dir", DefaultValue = ".", HelpText = "Location of the output directory.  Default value:  current directory.")]
         public string OutputDirString
         {
             get { return OutputDir.FullName; }
             set { OutputDir = new DirectoryInfo(value); }
         }
 
-        [Option('s', "size", Required = true, HelpText = "The size of the image in pixels in the MDPI folder")]
+        [Option('s', "size", DefaultValue=100, HelpText = "The size of the image in pixels in the MDPI folder.  Default value:  100")]
         public int Size { get; set; }
 
 
