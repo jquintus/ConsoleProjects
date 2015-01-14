@@ -17,12 +17,15 @@ This app will resize all images (.png files) in a directory to various sizes to 
 # Sample Usage: #
 
 ## Resize all images in current directory to 100 pixels by 100 pixels ##
+
     AndroidIconResizer
 
 ### Directory Before ###
+
     * file.png (1024 pixels x 1024 pixels)
 
 ### Directory After ###
+
     * file.png (still 1024 pixels x 1024 pixels)
     * res/drawable-ldpi/file.png (75 x 75 pixels)
     * res/drawable-mdpi/file.png (100 x 100 pixels)
@@ -30,7 +33,8 @@ This app will resize all images (.png files) in a directory to various sizes to 
     * res/drawable-xhdpi/file.png (200 x 200 pixels)
 
 
-## Resize all images in specified directory to 20 pixels by 50 pixels ## 
+## Resize all images in specified directory to 20 by 50 pixels ##
+
     AndroidIconResizer -i C:\inputFiles -w 20 -h 50
 
 # Dependencies #
