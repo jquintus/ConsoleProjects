@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ImageMagick;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AndroidIconResizer
 {
@@ -11,27 +8,26 @@ namespace AndroidIconResizer
     {
         public static void Main(string[] args)
         {
-            DirectoryInfo dir = new DirectoryInfo(".");
-            MakeDestinationDirectories(dir);
+            var options = CommandLineOption.Read(args);
+            if (null == options) return;
 
+            MakeDestinationDirectories(options.OutputDir);
 
-
-            var files = dir.GetFiles("*.png");
+            var files = options.InputDir.GetFiles("*.png");
             foreach (var file in files)
             {
-                ResizeFile(file);
+                ResizeFile(options.OutputDir, file, options.Size);
             }
         }
 
         private static void MakeDestinationDirectories(DirectoryInfo dir)
         {
             MkDir(dir, @"\res");
-            MkDir(dir, @"\res\drawable-hdpi");
-            MkDir(dir, @"\res\drawable-ldpi");
-            MkDir(dir, @"\res\drawable-mdpi");
-            MkDir(dir, @"\res\drawable-xhdpi");
-            MkDir(dir, @"\res\drawable-xxhdpi");
-            MkDir(dir, @"\res\drawable-xxxhdpi");
+
+            foreach (var size in ImageSize.Sizes)
+            {
+                MkDir(dir, @"\res\" + size.Name);
+            }
         }
 
         private static void MkDir(DirectoryInfo basedir, string subdir)
@@ -43,9 +39,20 @@ namespace AndroidIconResizer
             }
         }
 
-        private static void ResizeFile(FileInfo file)
+        private static void ResizeFile(DirectoryInfo outputDir, FileInfo inputFile, int size)
         {
-            Console.WriteLine("Resizing {0}", file);
+            Console.WriteLine("Resizing {0}", inputFile);
+
+            foreach (var imageSize in ImageSize.Sizes)
+            {
+                FileInfo outputFile = new FileInfo(Path.Combine(outputDir.FullName, inputFile.Name));
+                using (var image = new MagickImage(inputFile))
+                {
+                    int newSize = (int)(size * imageSize.Ratio);
+                    image.Resize(newSize, newSize);
+                    image.Write(outputFile);
+                }
+            }
         }
     }
 }
