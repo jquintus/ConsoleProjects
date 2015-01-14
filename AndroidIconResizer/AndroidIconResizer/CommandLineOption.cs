@@ -1,6 +1,5 @@
 ﻿using CommandLine;
 using CommandLine.Text;
-using System;
 using System.IO;
 
 namespace AndroidIconResizer
@@ -25,16 +24,11 @@ namespace AndroidIconResizer
             set { OutputDir = new DirectoryInfo(value); }
         }
 
-        [Option('s', "size", DefaultValue=100, HelpText = "The size of the image in pixels in the MDPI folder.  Default value:  100")]
-        public int Size { get; set; }
+        [Option('h', "height", DefaultValue = 100, HelpText = "The height of the output image in pixels in the MDPI folder.  Default value:  100")]
+        public int OutputHeight { get; set; }
 
-
-        [HelpOption]
-        public string GetUsage()
-        {
-            return HelpText.AutoBuild(this,
-              (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
-        }
+        [Option('w', "width", DefaultValue = 100, HelpText = "The width of the output image in pixels in the MDPI folder.  Default value:  100")]
+        public int OutputWidth { get; set; }
 
         public static CommandLineOption Read(string[] args)
         {
@@ -47,6 +41,13 @@ namespace AndroidIconResizer
             {
                 return null;
             }
+        }
+
+        [HelpOption]
+        public string GetUsage()
+        {
+            return HelpText.AutoBuild(this,
+              (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
         }
     }
 }
