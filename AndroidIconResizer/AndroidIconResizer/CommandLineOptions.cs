@@ -18,6 +18,15 @@ namespace AndroidIconResizer
             set { InputDir = new DirectoryInfo(value); }
         }
 
+        public FileInfo InputFile { get; set; }
+
+        [Option('f', "file", HelpText = "A single file to process.  If present, this overwrites input-dir")]
+        public string InputFileString
+        {
+            get { return InputFile.FullName; }
+            set { InputFile = new FileInfo(value); }
+        }
+
         public DirectoryInfo OutputDir { get; set; }
 
         [Option('o', "output-dir", DefaultValue = ".", HelpText = "Location of the output directory.  Default value:  current directory.")]

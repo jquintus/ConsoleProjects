@@ -13,26 +13,38 @@ namespace AndroidIconResizer
 
             MakeDestinationDirectories(options);
 
-            var files = options.InputDir.GetFiles("*.png");
+            var files = GetFiles(options);
             foreach (var file in files)
             {
                 ResizeFile(options, file);
             }
         }
 
-        private static void MakeDestinationDirectories(CommandLineOptions options)
+        private static FileInfo[] GetFiles(CommandLineOptions options)
         {
-            MkDir(options.OutputDir, @"\res");
-
-            foreach (var size in ImageSize.GetSizes(options))
+            if (options.InputFile != null)
             {
-                MkDir(options.OutputDir, @"\res\" + size.Name);
+                return new FileInfo[] { options.InputFile };
+            }
+            else
+            {
+                return options.InputDir.GetFiles("*.png");
             }
         }
 
-        private static void MkDir(DirectoryInfo basedir, string subdir)
+        private static void MakeDestinationDirectories(CommandLineOptions options)
         {
-            string dir = basedir.FullName + subdir;
+            MkDir(options.OutputDir.FullName, "res");
+
+            foreach (var size in ImageSize.GetSizes(options))
+            {
+                MkDir(options.OutputDir.FullName, "res", size.Name);
+            }
+        }
+
+        private static void MkDir(params string[] paths)
+        {
+            var dir = Path.Combine(paths);
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
