@@ -6,6 +6,9 @@ namespace AndroidResourceChecker
 {
     public class Program
     {
+        private static int _errors;
+        private static int _warnings;
+
         public static void Main(string[] args)
         {
             var options = CommandLineOptions.Read(args);
@@ -30,17 +33,24 @@ namespace AndroidResourceChecker
 
             foreach (var missing in folders.Where(f => !f.Exists && f.WarnIfMissing))
             {
-                Warn("Missing drawable folder {0}", missing.ToString());
+                Warn("Missing drawable folder {0}", missing);
             }
             foreach (var error in DrawableFolder.FindErrors(folders))
             {
                 Warn(error.ToString());
             }
-        }
 
-        private static void Error(string format, params string[] args)
-        {
-            Write(ConsoleColor.Red, format, args);
+            if (_warnings == 0 && _errors == 0)
+            {
+                Write("Success");
+            }
+            else
+            {
+                Write(string.Empty);
+                Write("Completed with");
+                Error("    {0} error(s)", _errors);
+                 Warn("    {0} warnings(s)", _warnings);
+            }
         }
 
         private static DirectoryInfo FindResourceDirectory(DirectoryInfo dir)
@@ -58,26 +68,25 @@ namespace AndroidResourceChecker
             return subDir.Parent;
         }
 
-        private static bool In(string search, params string[] list)
+        #region Logging
+
+        private static void Error(string format, params object[] args)
         {
-            foreach (var item in list)
-            {
-                if (string.Compare(search, item, true) == 0) return true;
-            }
-            return false;
+            Write(ConsoleColor.Red, format, args);
         }
 
-        private static void Warn(string format, params string[] args)
+        private static void Warn(string format, params object[] args)
         {
+            _warnings++;
             Write(ConsoleColor.Yellow, format, args);
         }
 
-        private static void Write(ConsoleColor fore, string format, params string[] args)
+        private static void Write(ConsoleColor fore, string format, params object[] args)
         {
             Write(fore, Console.BackgroundColor, format, args);
         }
 
-        private static void Write(ConsoleColor fore, ConsoleColor back, string format, params string[] args)
+        private static void Write(ConsoleColor fore, ConsoleColor back, string format, params object[] args)
         {
             ConsoleColor currentBackground = Console.BackgroundColor;
             ConsoleColor currentForeground = Console.ForegroundColor;
@@ -94,9 +103,11 @@ namespace AndroidResourceChecker
             }
         }
 
-        private static void Write(string format, params string[] args)
+        private static void Write(string format, params object[] args)
         {
             Console.WriteLine(format, args);
         }
+
+        #endregion Logging
     }
 }
