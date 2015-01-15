@@ -15,6 +15,8 @@ This app will resize all images (.png files) in a directory to various sizes to 
                         (http://developer.android.com/guide/practices/screens_support.html#xxxhdpi-note)
     -i, --input-dir     Location of the images to process.  Default
                         value:  current directory.
+    -f, --file          A single file to process.  If present, this overwrites
+                        input-dir
     -o, --output-dir    Location of the output directory.  Default
                         value:  current directory.
     -h, --height        (Default: 100) The height of the output image in pixels
