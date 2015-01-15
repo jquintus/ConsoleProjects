@@ -70,6 +70,11 @@ The app tries to be intelligent about where your resource directory is.  If you 
 
 If you don't specify a directory, it assumes the current directory
 
+### Sample Output: ###
+
+    drawable-hdpi contains a file not in drawable-mdpi:  NotificationIcon.png
+    drawable-xhdpi contains a file not in drawable-mdpi:  NotificationIcon.png
+
 ### Dependencies ###
 
 - [Command Line Parser Library](https://commandline.codeplex.com/) a neat and easy to use parser
