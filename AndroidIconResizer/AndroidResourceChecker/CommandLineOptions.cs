@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using CommandLine.Text;
 using System.IO;
 
 namespace AndroidResourceChecker
@@ -25,6 +26,13 @@ namespace AndroidResourceChecker
             {
                 return null;
             }
+        }
+
+        [HelpOption]
+        public string GetUsage()
+        {
+            return HelpText.AutoBuild(this,
+              (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
         }
     }
 }
