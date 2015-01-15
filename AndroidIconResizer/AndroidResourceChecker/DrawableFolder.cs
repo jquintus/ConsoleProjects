@@ -82,7 +82,7 @@ namespace AndroidResourceChecker
                 {
                     if (!otherFolder.Resources.Contains(file))
                     {
-                        yield return new Error(string.Format("{0} contains a folder not in {1}:  {2}", this, otherFolder, file));
+                        yield return new Error(string.Format("{0} contains a file not in {1}:  {2}", this, otherFolder, file));
                     }
                 }
             }
