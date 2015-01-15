@@ -4,7 +4,7 @@ using System.IO;
 
 namespace AndroidIconResizer
 {
-    public class CommandLineOption
+    public class CommandLineOptions
     {
         [Option("include-xxxhdpi", DefaultValue = false, HelpText = "Include an xxxhdpi sized image.  Note that google only suggests this for launcher icons.  (http://developer.android.com/guide/practices/screens_support.html#xxxhdpi-note)")]
         public bool IncludeXxxhdpi { get; set; }
@@ -33,9 +33,9 @@ namespace AndroidIconResizer
         [Option('w', "width", DefaultValue = 100, HelpText = "The width of the output image in pixels in the MDPI folder.")]
         public int OutputWidth { get; set; }
 
-        public static CommandLineOption Read(string[] args)
+        public static CommandLineOptions Read(string[] args)
         {
-            var options = new CommandLineOption();
+            var options = new CommandLineOptions();
             if (CommandLine.Parser.Default.ParseArguments(args, options))
             {
                 return options;

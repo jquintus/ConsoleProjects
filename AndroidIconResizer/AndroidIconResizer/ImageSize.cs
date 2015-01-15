@@ -15,7 +15,7 @@ namespace AndroidIconResizer
 
         public double Ratio { get; private set; }
 
-        public static IEnumerable<ImageSize> GetSizes(CommandLineOption options)
+        public static IEnumerable<ImageSize> GetSizes(CommandLineOptions options)
         {
 
             // Sizes:  http://developer.android.com/design/style/iconography.html

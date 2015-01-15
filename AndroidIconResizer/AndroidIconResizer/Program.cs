@@ -8,7 +8,7 @@ namespace AndroidIconResizer
     {
         public static void Main(string[] args)
         {
-            var options = CommandLineOption.Read(args);
+            var options = CommandLineOptions.Read(args);
             if (null == options) return;
 
             MakeDestinationDirectories(options);
@@ -20,7 +20,7 @@ namespace AndroidIconResizer
             }
         }
 
-        private static void MakeDestinationDirectories(CommandLineOption options)
+        private static void MakeDestinationDirectories(CommandLineOptions options)
         {
             MkDir(options.OutputDir, @"\res");
 
@@ -39,7 +39,7 @@ namespace AndroidIconResizer
             }
         }
 
-        private static void ResizeFile(CommandLineOption options, FileInfo inputFile)
+        private static void ResizeFile(CommandLineOptions options, FileInfo inputFile)
         {
             Console.WriteLine("Resizing {0}", inputFile);
 
