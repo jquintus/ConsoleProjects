@@ -28,7 +28,7 @@ This app will resize all images (.png files) in a directory to various sizes to 
 
 #### Resize all images in current directory to 100 pixels by 100 pixels ####
 
-    AndroidIconResizer
+    air.exe
 
 ##### Directory Before #####
 
@@ -45,7 +45,7 @@ This app will resize all images (.png files) in a directory to various sizes to 
 
 #### Resize all images in specified directory to 20 by 50 pixels ####
 
-    AndroidIconResizer -i C:\inputFiles -w 20 -h 50
+    air -i C:\inputFiles -w 20 -h 50
 
 ### Dependencies ###
 
