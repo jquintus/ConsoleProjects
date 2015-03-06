@@ -16,7 +16,7 @@
   <publishProfile
     profileName="TestSite - FTP"
     publishMethod="FTP"
-    publishUrl="ftp://waws-prod-blu-003.ftp.azurewebsites.windows.net/site/wwwroot"
+    publishUrl="ftp://waws.ftp.azurewebsites.windows.net/site/wwwroot"
     ftpPassiveMode="True"
     userName="testSite\$testSite"
     userPWD="test password"

@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Xml.Serialization;
 
 namespace PubProfileToFilezilla
 {
     public class ProfileReader
     {
-
-
         public publishData Read(string path)
         {
             using (var reader = new FileStream(path, FileMode.Open))

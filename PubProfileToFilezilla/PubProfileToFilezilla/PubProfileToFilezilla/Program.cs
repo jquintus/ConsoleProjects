@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace PubProfileToFilezilla
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+
+
             var profile = new ProfileReader().Read("SampleInput.xml");
+            var zilla = Converter.Convert(profile);
+
+            new FileZillaWriter().Write(zilla, "output.xml");
 
             Console.WriteLine("Done");
         }
