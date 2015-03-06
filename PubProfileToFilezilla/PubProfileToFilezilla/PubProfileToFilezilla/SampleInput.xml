@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<publishData>
+  <publishProfile
+    profileName="TestSite - Web Deploy"
+    publishMethod="MSDeploy"
+    publishUrl="testSite.scm.azurewebsites.net:443"
+    msdeploySite="testSite"
+    userName="$testSite"
+    userPWD="test password"
+    destinationAppUrl="http://testSite.azurewebsites.net"
+    SQLServerDBConnectionString=""
+    hostingProviderForumLink=""
+    controlPanelLink="http://windows.azure.com"
+    webSystem="WebSites">
+  </publishProfile>
+  <publishProfile
+    profileName="TestSite - FTP"
+    publishMethod="FTP"
+    publishUrl="ftp://waws-prod-blu-003.ftp.azurewebsites.windows.net/site/wwwroot"
+    ftpPassiveMode="True"
+    userName="testSite\$testSite"
+    userPWD="test password"
+    destinationAppUrl="http://testSite.azurewebsites.net"
+    SQLServerDBConnectionString=""
+    hostingProviderForumLink=""
+    controlPanelLink="http://windows.azure.com"
+    webSystem="WebSites">
+  </publishProfile>
+</publishData>
