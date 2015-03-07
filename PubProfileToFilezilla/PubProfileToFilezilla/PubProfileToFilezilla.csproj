@@ -60,8 +60,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist  $(SolutionDir)\..\apps\$(ProjectName) mkdir  $(SolutionDir)\..\apps\$(ProjectName)
-copy $(TargetPath) $(SolutionDir)\..\apps\$(ProjectName)\$(TargetFileName)$(TargetExt)</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Release (
+    if not exist  $(SolutionDir)\..\apps\ mkdir  $(SolutionDir)\..\apps
+    copy $(TargetPath) $(SolutionDir)\..\apps\$(TargetFileName)$(TargetExt)
+)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
