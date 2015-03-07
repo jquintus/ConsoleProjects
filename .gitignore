@@ -189,3 +189,6 @@ _Pvt_Extensions/
 ModelManifest.xml
 /FlattenBookRequests/packages
 /AndroidIconResizer/packages
+
+#Include the app release dir
+!/apps/*.exe
