@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PubProfileToFilezilla
 {
@@ -15,22 +11,20 @@ USAGE
 If path_to_output is omitted, the file is saved as filezilla.xml in the current directory
 
 Example
-    pubToFz c:\users\myName\downloads\file.publishProfile
+    pubToFz c:\users\myName\downloads\file.publishProfile";
 
-
-";
         public static void Main(string[] args)
         {
             try
             {
-            string input = GetInput(args);
-            string output = GetOutput(args);
+                string input = GetInput(args);
+                string output = GetOutput(args);
 
-            if (input == null || output == null)
-            {
-                Console.WriteLine(USAGE);
-                return;
-            }
+                if (input == null || output == null)
+                {
+                    Console.WriteLine(USAGE);
+                    return;
+                }
 
                 var profile = new ProfileReader().Read(input);
                 var zilla = Converter.Convert(profile);
@@ -46,9 +40,11 @@ Example
             }
         }
 
-        private static string GetOutput(string[] args)
+        private static string GetArg(string[] args, int position)
         {
-            return GetArg(args, 1) ?? "filezilla.xml";
+            if (args == null || args.Length <= position) return null;
+
+            return args[position];
         }
 
         private static string GetInput(string[] args)
@@ -56,11 +52,9 @@ Example
             return GetArg(args, 0);
         }
 
-        private static string GetArg(string[] args, int position)
+        private static string GetOutput(string[] args)
         {
-            if (args == null || args.Length <= position) return null;
-
-            return args[position];
+            return GetArg(args, 1) ?? "filezilla.xml";
         }
     }
 }
