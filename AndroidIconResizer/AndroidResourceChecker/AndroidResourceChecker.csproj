@@ -68,21 +68,7 @@
   <Target Name="BeforeBuild">
   </Target>
   -->
-  <Target Name="CopyFilesOnUnix" Condition=" '$(OS)' == 'Unix'">
-    <!-- When building with xbuild on Travis CI, the ILRepack files must be manually copied to the project directory -->
-    <Message Text="Copying the ILRepack files to the project directory" />
-    <ItemGroup>
-      <ILRepackFilesSource Include="$(SolutionDir)\packages\ILRepack.MSBuild.Task.1.0.9\build\*.*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(ILRepackFilesSource)" DestinationFolder="$(ProjectDir)" />
-  </Target>
-  <Target Name="DeleteFilesOnUnix" Condition=" '$(OS)' == 'Unix'">
-    <!-- When building with xbuild on Travis CI, the ILRepack files must be manually copied to the project directory -->
-    <Message Text="Deleting the ILRepack files to from project directory" />
-    <Delete Files="$(ProjectDir)\ILRepack.MSBuild.Task.dll" />
-    <Delete Files="$(ProjectDir)\ILRepack.MSBuild.Task.targets" />
-  </Target>
-  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release' AND '$(OS)' != 'Unix' ">
     <CallTarget Targets="CopyFilesOnUnix" />
     <!-- Package the dll dependencies in the executable to create a single deployable file 
          https://github.com/peters/ILRepack.MSBuild.Task

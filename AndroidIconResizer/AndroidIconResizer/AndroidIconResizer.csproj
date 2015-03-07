@@ -94,28 +94,14 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\ILRepack.MSBuild.Task.1.0.9\build\ILRepack.MSBuild.Task.targets')" Text="josh $([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.MSBuild.Task.1.0.9\build\ILRepack.MSBuild.Task.targets'))" />
+    <Error Condition="!Exists('..\packages\ILRepack.MSBuild.Task.1.0.9\build\ILRepack.MSBuild.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.MSBuild.Task.1.0.9\build\ILRepack.MSBuild.Task.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   -->
-  <Target Name="CopyFilesOnUnix" Condition=" '$(OS)' == 'Unix'">
-    <!-- When building with xbuild on Travis CI, the ILRepack files must be manually copied to the project directory -->
-    <Message Text="Copying the ILRepack files to the project directory" />
-    <ItemGroup>
-      <ILRepackFilesSource Include="$(SolutionDir)\packages\ILRepack.MSBuild.Task.1.0.9\build\*.*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(ILRepackFilesSource)" DestinationFolder="$(ProjectDir)" />
-  </Target>
-  <Target Name="DeleteFilesOnUnix" Condition=" '$(OS)' == 'Unix'">
-    <!-- When building with xbuild on Travis CI, the ILRepack files must be manually copied to the project directory -->
-    <Message Text="Deleting the ILRepack files to from project directory" />
-    <Delete Files="$(ProjectDir)\ILRepack.MSBuild.Task.dll" />
-    <Delete Files="$(ProjectDir)\ILRepack.MSBuild.Task.targets" />
-  </Target>
-  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release' AND '$(OS)' != 'Unix' ">
     <CallTarget Targets="CopyFilesOnUnix" />
     <!-- Package the dll dependencies in the executable to create a single deployable file 
          https://github.com/peters/ILRepack.MSBuild.Task
