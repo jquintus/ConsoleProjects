@@ -56,10 +56,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
   <Import Project="..\packages\ILRepack.MSBuild.Task.1.0.9\build\ILRepack.MSBuild.Task.targets" Condition="Exists('..\packages\ILRepack.MSBuild.Task.1.0.9\build\ILRepack.MSBuild.Task.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -72,15 +68,32 @@
   <Target Name="BeforeBuild">
   </Target>
   -->
+  <Target Name="CopyFilesOnUnix" Condition=" '$(OS)' == 'Unix'">
+    <!-- When building with xbuild on Travis CI, the ILRepack files must be manually copied to the project directory -->
+    <Message Text="Copying the ILRepack files to the project directory" />
+    <ItemGroup>
+      <ILRepackFilesSource Include="$(SolutionDir)\packages\ILRepack.MSBuild.Task.1.0.9\build\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ILRepackFilesSource)" DestinationFolder="$(ProjectDir)" />
+  </Target>
+  <Target Name="DeleteFilesOnUnix" Condition=" '$(OS)' == 'Unix'">
+    <!-- When building with xbuild on Travis CI, the ILRepack files must be manually copied to the project directory -->
+    <Message Text="Deleting the ILRepack files to from project directory" />
+    <Delete Files="$(ProjectDir)\ILRepack.MSBuild.Task.dll" />
+    <Delete Files="$(ProjectDir)\ILRepack.MSBuild.Task.targets" />
+  </Target>
   <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+    <CallTarget Targets="CopyFilesOnUnix" />
     <!-- Package the dll dependencies in the executable to create a single deployable file 
          https://github.com/peters/ILRepack.MSBuild.Task
     -->
     <ItemGroup>
       <InputAssemblies Include="$(OutputPath)\$(AssemblyName).$(OutputType)" />
       <InputAssemblies Include="$(OutputPath)\CommandLine.dll" />
+      <InputAssemblies Include="$(OutputPath)\Magick.NET-AnyCPU.dll" />
     </ItemGroup>
     <MakeDir Directories="$(SolutionDir)\..\apps\" />
     <ILRepack Parallel="true" Internalize="true" InputAssemblies="@(InputAssemblies)" TargetKind="$(OutputType)" OutputFile="$(SolutionDir)\..\apps\$(AssemblyName).$(OutputType)" />
+    <CallTarget Targets="DeleteFilesOnUnix" />
   </Target>
 </Project>
