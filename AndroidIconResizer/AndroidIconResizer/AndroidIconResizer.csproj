@@ -69,7 +69,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -91,17 +90,31 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist  $(SolutionDir)\..\apps\$(SolutionName) mkdir  $(SolutionDir)\..\apps\$(SolutionName) 
-
-copy $(TargetPath) $(SolutionDir)\..\apps\$(SolutionName)\
-copy $(TargetDir)\CommandLine.dll $(SolutionDir)\..\apps\$(SolutionName)\
-copy $(TargetDir)\Magick.NET-AnyCPU.dll  $(SolutionDir)\..\apps\$(SolutionName)\</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\ILRepack.MSBuild.Task.1.0.9\build\ILRepack.MSBuild.Task.targets" Condition="Exists('..\packages\ILRepack.MSBuild.Task.1.0.9\build\ILRepack.MSBuild.Task.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\ILRepack.MSBuild.Task.1.0.9\build\ILRepack.MSBuild.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.MSBuild.Task.1.0.9\build\ILRepack.MSBuild.Task.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
   -->
+  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+    <!-- Package the dll dependencies in the executable to create a single deployable file 
+         https://github.com/peters/ILRepack.MSBuild.Task
+    -->
+    <ItemGroup>
+      <InputAssemblies Include="$(OutputPath)\$(AssemblyName).$(OutputType)" />
+      <InputAssemblies Include="$(OutputPath)\CommandLine.dll" />
+      <InputAssemblies Include="$(OutputPath)\Magick.NET-AnyCPU.dll" />
+    </ItemGroup>
+    <MakeDir Directories="$(SolutionDir)\..\apps\" />
+    <ILRepack Parallel="true" Internalize="true" InputAssemblies="@(InputAssemblies)" TargetKind="$(OutputType)" OutputFile="$(SolutionDir)\..\apps\$(AssemblyName).$(OutputType)" />
+  </Target>
 </Project>
