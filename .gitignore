@@ -191,4 +191,5 @@ ModelManifest.xml
 /AndroidIconResizer/packages
 
 #Include the app release dir
-!/apps/*.exe
+!/apps/**/*.exe
+!/apps/**/*.dll
