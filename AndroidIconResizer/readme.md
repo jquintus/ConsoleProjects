@@ -4,6 +4,10 @@ Collection of small utilities I have found useful while writing Android apps
 * [Android Icon Resizer (air)](https://github.com/jquintus/QuintusPersonal/tree/master/AndroidIconResizer#android-icon-resizer)
 * [Android Resoucre Checker (arc)](https://github.com/jquintus/QuintusPersonal/tree/master/AndroidIconResizer#android-resoucre-checker-arc)
 
+## Direct Downloads ##
+* [air.exe](https://github.com/jquintus/ConsoleProjects/raw/master/apps/air.Exe)
+* [arc.exe](https://github.com/jquintus/ConsoleProjects/raw/master/apps/arc.Exe)
+
 ## Android Icon Resizer ##
 This app will resize all images (.png files) in a directory to various sizes to be used as drawable files in an android project.
 

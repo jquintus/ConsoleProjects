@@ -62,7 +62,7 @@
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release (
     if not exist  $(SolutionDir)\..\apps\ mkdir  $(SolutionDir)\..\apps
-    copy $(TargetPath) $(SolutionDir)\..\apps\$(TargetFileName)$(TargetExt)
+    copy $(TargetPath) $(SolutionDir)\..\apps\$(TargetFileName)
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
