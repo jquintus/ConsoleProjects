@@ -11,7 +11,6 @@ Collection of small utilities I have found useful while writing Android apps
 ## Android Icon Resizer ##
 This app will resize all images (.png files) in a directory to various sizes to be used as drawable files in an android project.
 
-
 ### Command line options: ###
 
     --include-xxxhdpi   (Default: False) Include an xxxhdpi sized image.  Note
@@ -57,6 +56,9 @@ This app will resize all images (.png files) in a directory to various sizes to 
 
 - [Magick.Net](https://magick.codeplex.com/) a .Net wrapper around [ImageMagick](http://www.imagemagick.org/)
 - [Command Line Parser Library](https://commandline.codeplex.com/) a neat and easy to use parser
+
+### Walkthrough ###
+For a step by step walkthrough, visit the[ MasterDevs blog](http://blog.masterdevs.com/creating-drawables-for-android-2/)
 
 ## Android Resoucre Checker (arc) ##
 
