@@ -16,4 +16,4 @@ If path_to_output is omitted, the file is saved as filezilla.xml in the current 
     pubToFz c:\users\myName\downloads\file.publishProfile filezilla.xml
 
 ## Walkthrough ##
-For a step by step walkthrough, view the [MasterDevs blog](http://blog.masterdevs.com/convert-azure-publish-profiles-to-filezilla-config-files/).
+For a step by step walkthrough, view the [MasterDevs blog](http://blog.masterdevs.com/pubtofz/).
